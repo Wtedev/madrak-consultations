@@ -1,27 +1,37 @@
 @import "tailwindcss";
 
 :root {
+  --foreground: #1a2e30;
   --madrak-primary: #068b90;
   --madrak-secondary: #fcc565;
-  --madrak-bg: #faf8f5;
-  --madrak-surface: #ffffff;
-  --madrak-text: #1a1f24;
-  --madrak-muted: #6b7280;
-  --madrak-border: rgba(26, 31, 36, 0.08);
 }
 
 @theme inline {
+  --color-foreground: var(--foreground);
   --color-madrak-primary: var(--madrak-primary);
   --color-madrak-secondary: var(--madrak-secondary);
-  --color-madrak-bg: var(--madrak-bg);
-  --color-madrak-surface: var(--madrak-surface);
-  --color-madrak-text: var(--madrak-text);
-  --color-madrak-muted: var(--madrak-muted);
-  --font-sans: var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+  --font-family-madrak: var(--font-madrak), Tahoma, Arial, sans-serif;
 }
 
 body {
-  background: var(--madrak-bg);
-  color: var(--madrak-text);
-  font-family: var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+  color: var(--foreground);
+  font-family: var(--font-madrak);
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes coming-soon-dot {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.coming-soon-dot {
+  animation: coming-soon-dot 1.6s ease-in-out infinite;
 }
