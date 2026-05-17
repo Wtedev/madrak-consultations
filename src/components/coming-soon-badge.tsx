@@ -56,7 +56,7 @@ export function ComingSoonBadge() {
           }`}
           aria-hidden={phase !== "text"}
         >
-          قريبًا
+          قريبًـا
         </span>
       </div>
     </div>
