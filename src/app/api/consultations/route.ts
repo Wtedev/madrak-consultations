@@ -7,7 +7,7 @@ import {
   mapGender,
 } from "@/lib/consultation-mappers";
 import { generateReferenceCode } from "@/lib/reference-code";
-import { prisma } from "@/lib/prisma";
+import { getPrisma } from "@/lib/prisma";
 import {
   consultationFormSchema,
   formatZodErrors,
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
   const data = parsed.data;
 
   try {
-    const referenceCode = await prisma.$transaction(async (tx) => {
+    const referenceCode = await getPrisma().$transaction(async (tx) => {
       const code = await generateReferenceCode(tx);
 
       const consultation = await tx.consultation.create({

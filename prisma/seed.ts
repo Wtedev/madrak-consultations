@@ -2,12 +2,12 @@ import "dotenv/config";
 
 import bcrypt from "bcryptjs";
 
-import { prisma } from "../src/lib/prisma";
+import { getPrisma } from "../src/lib/prisma";
 
 async function main() {
   const passwordHash = await bcrypt.hash("admin12345", 10);
 
-  await prisma.adminUser.upsert({
+  await getPrisma().adminUser.upsert({
     where: { email: "admin@madrak.sa" },
     update: {},
     create: {
@@ -27,5 +27,5 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect();
+    await getPrisma().$disconnect();
   });
