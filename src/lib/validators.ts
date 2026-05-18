@@ -60,6 +60,52 @@ export const consultationFormSchema = z.object({
 
 export type ConsultationFormInput = z.infer<typeof consultationFormSchema>;
 
+export const consultationStep1Schema = consultationFormSchema.pick({
+  fullName: true,
+  phone: true,
+  email: true,
+  gender: true,
+});
+
+export const consultationStep2Schema = consultationFormSchema.pick({
+  currentStage: true,
+  university: true,
+  majorInterest: true,
+});
+
+export const consultationStep3Schema = consultationFormSchema.pick({
+  consultationType: true,
+  question: true,
+});
+
+export const consultationStep4Schema = consultationFormSchema.pick({
+  preferredContactMethod: true,
+});
+
+const consultationStepSchemas = [
+  consultationStep1Schema,
+  consultationStep2Schema,
+  consultationStep3Schema,
+  consultationStep4Schema,
+] as const;
+
+export function validateConsultationStep(
+  stepIndex: number,
+  data: unknown,
+): Record<string, string> {
+  const schema = consultationStepSchemas[stepIndex];
+  if (!schema) {
+    return {};
+  }
+
+  const result = schema.safeParse(data);
+  if (result.success) {
+    return {};
+  }
+
+  return formatZodErrors(result.error);
+}
+
 export function formatZodErrors(
   error: z.ZodError,
 ): Record<string, string> {

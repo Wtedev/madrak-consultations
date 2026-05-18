@@ -1,7 +1,4 @@
-import {
-  ConsultationForm,
-  ConsultationPageHeader,
-} from "@/components/consultation-form";
+import { ConsultationWizard } from "@/components/consultation/wizard";
 
 export const metadata = {
   title: "طلب استشارة أكاديمية | بوصلتك الجامعية",
@@ -11,11 +8,12 @@ export const metadata = {
 
 export default function ConsultationPage() {
   return (
-    <main className="min-h-full bg-gradient-to-b from-[#f4fbfb] via-white to-[#fff9ef] px-4 py-8 sm:px-6 sm:py-12">
-      <div className="mx-auto max-w-2xl">
-        <ConsultationPageHeader />
-        <ConsultationForm />
-      </div>
+    <main className="min-h-full bg-[#f0f9f9] px-4 py-6 sm:px-6 sm:py-10 lg:py-14">
+      <div
+        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_rgba(6,139,144,0.08),_transparent_50%),radial-gradient(ellipse_at_bottom_left,_rgba(252,197,101,0.12),_transparent_50%)]"
+        aria-hidden
+      />
+      <ConsultationWizard />
     </main>
   );
 }

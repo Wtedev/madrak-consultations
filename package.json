@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "start:prod": "prisma migrate deploy && prisma db push --skip-generate && next start",
     "lint": "eslint .",
     "postinstall": "prisma generate",
     "prisma:dev": "prisma migrate dev",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/pg": "^8.15.5",
     "@types/react": "^19",
