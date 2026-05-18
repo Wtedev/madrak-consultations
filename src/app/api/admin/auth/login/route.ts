@@ -8,7 +8,7 @@ import {
   setSessionCookie,
   signSession,
   verifyAdminCredentials,
-} from "@/lib/auth";
+} from "@/lib/admin-auth";
 import { getPrisma } from "@/lib/prisma";
 
 const loginSchema = z.object({

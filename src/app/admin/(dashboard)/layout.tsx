@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { AdminHeader } from "@/components/admin/admin-header";
-import { requireAdmin } from "@/lib/auth";
+import { requireAdmin } from "@/lib/admin-auth";
 
 export const metadata = {
   title: "لوحة الإدارة | بوصلتك الجامعية",

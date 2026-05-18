@@ -1,13 +1,14 @@
-import { timingSafeEqual } from "node:crypto";
+import "server-only";
 
 import type { AdminRole } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
-export const ADMIN_COOKIE = "madrak_admin_session";
-export const INVALID_CREDENTIALS_MESSAGE = "Invalid email or password";
+import { ADMIN_COOKIE, SESSION_MAX_AGE } from "@/lib/admin-cookie";
 
-const SESSION_MAX_AGE = 60 * 60 * 24 * 7;
+export { ADMIN_COOKIE } from "@/lib/admin-cookie";
+
+export const INVALID_CREDENTIALS_MESSAGE = "Invalid email or password";
 
 export type SessionPayload = {
   sub: string;
@@ -41,15 +42,16 @@ export function getAdminCredentialsFromEnv(): {
 }
 
 function timingSafeEqualString(a: string, b: string): boolean {
-  const encoder = new TextEncoder();
-  const left = encoder.encode(a);
-  const right = encoder.encode(b);
-
-  if (left.length !== right.length) {
+  if (a.length !== b.length) {
     return false;
   }
 
-  return timingSafeEqual(left, right);
+  let result = 0;
+  for (let index = 0; index < a.length; index += 1) {
+    result |= a.charCodeAt(index) ^ b.charCodeAt(index);
+  }
+
+  return result === 0;
 }
 
 export function verifyAdminCredentials(email: string, password: string): boolean {
@@ -93,12 +95,6 @@ export async function requireAdmin(): Promise<SessionPayload> {
   }
   return session;
 }
-
-/** @deprecated Use getAdminSession */
-export const getSession = getAdminSession;
-
-/** @deprecated Use requireAdmin */
-export const requireSession = requireAdmin;
 
 export async function setSessionCookie(token: string) {
   const cookieStore = await cookies();

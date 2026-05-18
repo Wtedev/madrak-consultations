@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getAdminSession } from "@/lib/auth";
+import { getAdminSession } from "@/lib/admin-auth";
 
 export async function requireAdminApi() {
   const session = await getAdminSession();
