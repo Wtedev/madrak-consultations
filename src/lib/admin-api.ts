@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 
-import { getSession } from "@/lib/auth";
+import { getAdminSession } from "@/lib/auth";
 
 export async function requireAdminApi() {
-  const session = await getSession();
+  const session = await getAdminSession();
   if (!session) {
     return { session: null, response: unauthorized() };
   }

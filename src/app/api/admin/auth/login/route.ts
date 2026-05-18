@@ -1,45 +1,63 @@
 import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
 import { z } from "zod";
 
-import { setSessionCookie, signSession } from "@/lib/auth";
 import { badRequest, serverError } from "@/lib/admin-api";
+import {
+  getAdminCredentialsFromEnv,
+  INVALID_CREDENTIALS_MESSAGE,
+  setSessionCookie,
+  signSession,
+  verifyAdminCredentials,
+} from "@/lib/auth";
 import { getPrisma } from "@/lib/prisma";
 
 const loginSchema = z.object({
-  email: z.email("أدخل بريدًا إلكترونيًا صحيحًا"),
-  password: z.string().min(1, "كلمة المرور مطلوبة"),
+  email: z.email("Invalid email or password"),
+  password: z.string().min(1, "Invalid email or password"),
 });
 
+const PLACEHOLDER_PASSWORD_HASH =
+  "$2a$10$000000000000000000000000000000000000000000000000000000";
+
 export async function POST(request: Request) {
+  if (!getAdminCredentialsFromEnv()) {
+    console.error("Admin login is not configured: ADMIN_EMAIL and ADMIN_PASSWORD are required");
+    return serverError("Unable to sign in");
+  }
+
   let body: unknown;
 
   try {
     body = await request.json();
   } catch {
-    return badRequest("طلب غير صالح");
+    return badRequest("Invalid request");
   }
 
   const parsed = loginSchema.safeParse(body);
   if (!parsed.success) {
-    return badRequest("بيانات الدخول غير صحيحة");
+    return badRequest(INVALID_CREDENTIALS_MESSAGE);
   }
 
   const { email, password } = parsed.data;
 
+  if (!verifyAdminCredentials(email, password)) {
+    return badRequest(INVALID_CREDENTIALS_MESSAGE);
+  }
+
+  const configured = getAdminCredentialsFromEnv()!;
+
   try {
-    const admin = await getPrisma().adminUser.findUnique({
-      where: { email: email.toLowerCase() },
+    const admin = await getPrisma().adminUser.upsert({
+      where: { email: configured.email },
+      update: { name: configured.name, role: "ADMIN" },
+      create: {
+        email: configured.email,
+        name: configured.name,
+        passwordHash: PLACEHOLDER_PASSWORD_HASH,
+        role: "ADMIN",
+      },
+      select: { id: true, name: true, email: true, role: true },
     });
-
-    if (!admin) {
-      return badRequest("البريد الإلكتروني أو كلمة المرور غير صحيحة");
-    }
-
-    const valid = await bcrypt.compare(password, admin.passwordHash);
-    if (!valid) {
-      return badRequest("البريد الإلكتروني أو كلمة المرور غير صحيحة");
-    }
 
     const token = signSession({
       sub: admin.id,
@@ -61,6 +79,6 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Admin login failed:", error);
-    return serverError("تعذر تسجيل الدخول");
+    return serverError("Unable to sign in");
   }
 }

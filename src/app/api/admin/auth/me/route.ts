@@ -1,18 +1,18 @@
 import { NextResponse } from "next/server";
 
-import { requireAdminApi, unauthorized } from "@/lib/admin-api";
-import { getPrisma } from "@/lib/prisma";
+import { requireAdminApi } from "@/lib/admin-api";
 
 export async function GET() {
   const auth = await requireAdminApi();
   if (!auth.session) return auth.response!;
 
-  const admin = await getPrisma().adminUser.findUnique({
-    where: { id: auth.session.sub },
-    select: { id: true, name: true, email: true, role: true },
+  return NextResponse.json({
+    success: true,
+    admin: {
+      id: auth.session.sub,
+      name: auth.session.name,
+      email: auth.session.email,
+      role: auth.session.role,
+    },
   });
-
-  if (!admin) return unauthorized();
-
-  return NextResponse.json({ success: true, admin });
 }
