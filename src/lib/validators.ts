@@ -2,7 +2,6 @@ import { z } from "zod";
 
 import {
   CONSULTATION_TYPE_LABELS,
-  CONTACT_METHOD_LABELS,
   CURRENT_STAGE_LABELS,
   GENDER_LABELS,
 } from "@/lib/consultation-mappers";
@@ -53,9 +52,6 @@ export const consultationFormSchema = z.object({
     .trim()
     .min(10, "اكتب سؤالك أو استفسارك (10 أحرف على الأقل)")
     .max(5000, "النص طويل جداً"),
-  preferredContactMethod: z.enum(CONTACT_METHOD_LABELS, {
-    message: "اختر نمط التواصل المفضل",
-  }),
 });
 
 export type ConsultationFormInput = z.infer<typeof consultationFormSchema>;
@@ -78,9 +74,7 @@ export const consultationStep3Schema = consultationFormSchema.pick({
   question: true,
 });
 
-export const consultationStep4Schema = consultationFormSchema.pick({
-  preferredContactMethod: true,
-});
+export const consultationStep4Schema = z.object({});
 
 const consultationStepSchemas = [
   consultationStep1Schema,

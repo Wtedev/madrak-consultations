@@ -79,7 +79,6 @@ export function ReviewSummary({
           : form.question,
       step: 3,
     },
-    { label: "طريقة التواصل", value: form.preferredContactMethod, step: 4 },
   ];
 
   return (

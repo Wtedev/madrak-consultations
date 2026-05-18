@@ -129,7 +129,6 @@ export function ConsultationDetailPanel({ initialData }: ConsultationDetailPanel
             <DetailRow label="المرحلة" value={data.currentStageLabel} />
             <DetailRow label="الجامعة" value={data.university ?? "—"} />
             <DetailRow label="التخصص المهتم به" value={data.majorInterest ?? "—"} />
-            <DetailRow label="طريقة التواصل" value={data.preferredContactMethodLabel} />
             <DetailRow label="الأولوية" value={data.priorityLabel} />
           </dl>
         </section>

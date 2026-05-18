@@ -2,7 +2,6 @@
 
 import {
   CONSULTATION_TYPE_LABELS,
-  CONTACT_METHOD_LABELS,
   CURRENT_STAGE_LABELS,
   GENDER_LABELS,
 } from "@/lib/consultation-mappers";
@@ -203,36 +202,6 @@ export function StepFields({ step, form, errors, onChange }: StepFieldsProps) {
             placeholder="اكتب تفاصيل استفسارك هنا..."
           />
         </FormField>
-      </div>
-    );
-  }
-
-  if (step === 4) {
-    return (
-      <div className="space-y-5">
-        <fieldset>
-          <legend className="mb-3 block text-sm font-medium text-slate-700">
-            نمط التواصل المفضل للإجابة{" "}
-            <span className="text-madrak-primary">*</span>
-          </legend>
-          <div className="grid grid-cols-2 gap-3">
-            {CONTACT_METHOD_LABELS.map((option) => (
-              <RadioOption
-                key={option}
-                name="preferredContactMethod"
-                value={option}
-                label={option}
-                checked={form.preferredContactMethod === option}
-                onChange={() => onChange("preferredContactMethod", option)}
-              />
-            ))}
-          </div>
-          {errors.preferredContactMethod ? (
-            <p className="mt-1.5 text-xs font-medium text-red-600">
-              {errors.preferredContactMethod}
-            </p>
-          ) : null}
-        </fieldset>
       </div>
     );
   }

@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 
 import {
   mapConsultationType,
-  mapContactMethod,
   mapCurrentStage,
   mapGender,
 } from "@/lib/consultation-mappers";
@@ -58,7 +57,7 @@ export async function POST(request: Request) {
           majorInterest: data.majorInterest,
           consultationType: mapConsultationType(data.consultationType),
           question: data.question,
-          preferredContactMethod: mapContactMethod(data.preferredContactMethod),
+          preferredContactMethod: "WHATSAPP",
         },
       });
 

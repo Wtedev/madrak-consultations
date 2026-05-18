@@ -40,9 +40,9 @@ export const FORM_STEPS: FormStepConfig[] = [
   },
   {
     id: 4,
-    title: "طريقة التواصل والمراجعة",
+    title: "مراجعة وإرسال",
     shortLabel: "مراجعة",
-    description: "راجع بياناتك وأكد الإرسال",
+    description: "راجع بياناتك وأكد إرسال الطلب",
     icon: Send,
   },
 ];

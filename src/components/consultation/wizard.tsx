@@ -100,7 +100,6 @@ export function ConsultationWizard() {
             majorInterest: 2,
             consultationType: 3,
             question: 3,
-            preferredContactMethod: 4,
           };
           setCurrentStep(stepMap[firstErrorField] ?? 1);
         } else {
@@ -241,8 +240,8 @@ export function ConsultationWizard() {
                 تم استلام طلبك بنجاح
               </h2>
               <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-600">
-                شكرًا لتواصلك معنا. سيقوم فريق الاستشارات بمراجعة طلبك والرد عليك
-                عبر الوسيلة التي اخترتها.
+                شكرًا لتواصلك معنا. سيقوم فريق الاستشارات بمراجعة طلبك والتواصل معك
+                قريبًا.
               </p>
               <div className="mt-8 w-full max-w-sm rounded-2xl border-2 border-dashed border-madrak-primary/25 bg-gradient-to-b from-madrak-primary/5 to-white px-6 py-6">
                 <p className="text-xs font-medium text-slate-500">الرقم المرجعي لطلبك</p>
@@ -251,8 +250,7 @@ export function ConsultationWizard() {
                 </p>
               </div>
               <p className="mt-6 max-w-md text-xs leading-relaxed text-slate-500">
-                احتفظ بهذا الرقم لمتابعة طلبك. سيتم التواصل معك عبر الوسيلة التي
-                اخترتها بعد مراجعة الطلب.
+                احتفظ بهذا الرقم لمتابعة طلبك. سيتم التواصل معك بعد مراجعة الطلب.
               </p>
             </div>
           ) : (
@@ -294,7 +292,7 @@ export function ConsultationWizard() {
                       بالضغط على «إرسال الطلب» تؤكد صحة البيانات المدخلة.
                     </p>
                     <p className="mt-2 text-center text-xs text-slate-400 lg:text-start">
-                      سيتم التواصل معك عبر الوسيلة التي اخترتها بعد مراجعة الطلب.
+                      سيتم التواصل معك بعد مراجعة الطلب.
                     </p>
                   </div>
                 ) : null}

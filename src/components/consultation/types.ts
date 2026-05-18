@@ -8,7 +8,6 @@ export type ConsultationFormState = {
   majorInterest: string;
   consultationType: string;
   question: string;
-  preferredContactMethod: string;
 };
 
 export const initialConsultationForm: ConsultationFormState = {
@@ -21,5 +20,4 @@ export const initialConsultationForm: ConsultationFormState = {
   majorInterest: "",
   consultationType: "",
   question: "",
-  preferredContactMethod: "",
 };
