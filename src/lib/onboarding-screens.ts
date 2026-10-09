@@ -30,7 +30,7 @@ export const ONBOARDING_SCREENS: OnboardingScreen[] = [
     id: "intro-1",
     mobileSrc: "/images/onboarding/intro-mobile-1.webp",
     desktopSrc: "/images/onboarding/intro-desktop-1.webp",
-    alt: "بوصلتك الجامعية — نموذج الاستشارات الأكاديمية من مدرك",
+    alt: "استشارات تحليل البيانات من مدرك",
     cta: {
       href: "/consultation",
       ariaLabel: "اطلب الاستشارة",

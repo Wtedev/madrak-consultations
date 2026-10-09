@@ -1,4 +1,4 @@
-# بوصلتك الجامعية | نموذج الاستشارات الأكاديمية
+# استشارات تحليل البيانات | مدرك
 
 **madrak-consultations** — Arabic academic consultation request system (Madrak). This repository contains the Next.js application foundation, Prisma data layer, and deployment configuration.
 
@@ -51,7 +51,7 @@
 |----------|----------|-------------|
 | `DATABASE_URL` | Yes | PostgreSQL connection string (`postgresql://...`) |
 | `JWT_SECRET` | Yes | Secret for signing admin JWTs (use a long random value in production) |
-| `NEXT_PUBLIC_APP_NAME` | No | Public app display name (default in example: بوصلتك الجامعية) |
+| `NEXT_PUBLIC_APP_NAME` | No | Public app display name (default in example: استشارات تحليل البيانات) |
 
 Copy from `.env.example` only — **never commit `.env`**.
 
